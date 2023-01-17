@@ -1,0 +1,16 @@
+Brightleaf Iron Mine
+
+The first puzzle from the Last Call BBS impl.
+By the way, the first line of the file is the file title, and anything from
+there until a triple-dash is comments.
+
+---
+ 14270444
+3........
+2.......@
+5..@.....
+3.......@
+4........
+1.$.....@
+4........
+4.......@
