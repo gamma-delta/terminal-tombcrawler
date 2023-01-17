@@ -336,12 +336,12 @@ fn puzzle_tile_display(tile: Tile) -> (char, Colors, Attributes) {
     Tile::Monster => (
       '@',
       Colors::new(Color::Red, Color::Reset),
-      Attribute::Bold | Attribute::NoItalic,
+      Attributes::default() | Attribute::Bold | Attribute::NoItalic,
     ),
     Tile::TreasureChest => (
       '$',
       Colors::new(Color::Yellow, Color::Reset),
-      Attribute::Bold | Attribute::NoItalic,
+      Attributes::default() | Attribute::Bold | Attribute::NoItalic,
     ),
   }
 }
