@@ -2,6 +2,7 @@ mod harness;
 
 use std::fs;
 
+use aglet::Direction8;
 use argh::FromArgs;
 use eyre::eyre;
 use harness::SolveHarness;
@@ -66,17 +67,36 @@ struct CmdTestSolver {}
 
 impl CmdTestSolver {
   fn run(&self) -> eyre::Result<()> {
-    let file = fs::read_to_string("puzzles/01-brightleaf.ttc")?;
-    let level = terminal_tombcrawler::parse_to_level(&file)
-      .map_err(|e| eyre!("{}", e.to_string()))?;
+    let level = terminal_tombcrawler::parse_to_level(
+      "r#Test level
+      
+---
+ 52125
+5.....
+2.....
+2..$..
+2.....
+4.....
+0@...@
+      ",
+    )
+    .map_err(|e| eyre!("{}", e.to_string()))?;
 
     struct Dummy;
     impl Solution for Dummy {
       fn is_wall(&self, coord: aglet::Coord) -> bool {
-        false
+        let lookup: [[u8; 5]; 6] = [
+          [1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 0, 0, 0, 1],
+          [1, 1, 0, 1, 1],
+          [0, 0, 0, 0, 0],
+        ];
+        lookup[coord.y as usize][coord.x as usize] != 0
       }
     }
-    let solved = level.puzzle().check_solution(&Dummy);
+    let solved = level.puzzle().check_solution(&Dummy, true);
     println!("{:?}", solved);
 
     Ok(())

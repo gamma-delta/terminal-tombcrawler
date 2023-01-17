@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "aglet"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6386f09c9da2d8efd8f38c9ba1e97681210ca01c7ec326a8178a5dc673636535"
+checksum = "82489353637b5fae7f116258cdf1a1a1bb257654df4859ad1d872169d772d577"
 dependencies = [
  "enumflags2",
  "serde",

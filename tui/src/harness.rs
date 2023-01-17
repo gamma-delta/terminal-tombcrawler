@@ -171,7 +171,7 @@ impl SolveHarness {
     let view = SolutionView {
       marks: &self.markings,
     };
-    let solved = self.level.puzzle().check_solution(&view);
+    let solved = self.level.puzzle().check_solution(&view, false);
     self.solved = match solved {
       Ok(()) => SolvedState::Success,
       Err(fail) => SolvedState::Fail(fail),
@@ -260,12 +260,6 @@ impl SolveHarness {
           .queue(Print("yay!"))?;
       }
     }
-    stdout
-      .queue(MoveTo(rightmost.0, rightmost.1 + 2))?
-      .queue(ResetColor)?
-      .queue(Print(format!("{:?}", col_counts)))?
-      .queue(MoveTo(rightmost.0, rightmost.1 + 3))?
-      .queue(Print(format!("{:?}", row_counts)))?;
 
     let cursorpos = grid_to_screen(self.cursor);
     stdout.queue(MoveTo(cursorpos.0, cursorpos.1))?;
@@ -313,12 +307,12 @@ impl Marking {
       Marking::Wall => (
         '#',
         Colors::new(Color::White, Color::DarkGrey),
-        Attribute::Bold.into(),
+        Attributes::default() | Attribute::NormalIntensity | Attribute::Bold,
       ),
       Marking::Empty => (
         '*',
         Colors::new(Color::DarkMagenta, Color::Reset),
-        Attribute::Italic.into(),
+        Attributes::default() | Attribute::NormalIntensity | Attribute::Italic,
       ),
     }
   }
